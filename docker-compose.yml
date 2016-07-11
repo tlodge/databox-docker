@@ -1,0 +1,38 @@
+mosquitto:
+  build:
+   mosquitto
+  ports:
+    - "1883:1883"
+  container_name:
+   mosquitto
+
+influx:
+  build:
+    influx
+  ports:
+    - "8083:8083"
+    - "8086:8086"
+  container_name:
+    influxdb
+
+companionapp:
+  build:
+    databox-companion-app
+  ports:
+    - "8001:8001"
+  links:
+    - mosquitto
+  command:
+    /root/start.sh
+  container_name:
+    companion-app
+
+datasource:
+  build:
+    databox-datasource-mock
+  links:
+    - mosquitto
+  command:
+    /root/start.sh
+  container_name:
+    mock-datasource
