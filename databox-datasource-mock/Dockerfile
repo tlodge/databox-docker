@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER Tom Lodge <tlodge@gmail.com>
-
+COPY resolv.conf /etc/resolv.conf
 RUN apt-get update
 RUN apt-get install -y git
 RUN apt-get install -y nodejs
